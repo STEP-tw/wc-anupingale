@@ -1,12 +1,15 @@
 const startsWithDash = option => option.startsWith("-");
 
-const hasAllOptions = option => startsWithDash(option) && option.length > 2;
-
 const parse = function(args) {
-  if (args.length == 1) {
-    return { files: args };
+  let options = args.filter(arg => startsWithDash(arg));
+  if (options.length == 0) {
+    options = ["-l", "-w", "-c"];
   }
-  return { files: args.slice(1) };
+
+  if (args.length == 1) {
+    return { options, files: args };
+  }
+  return { options, files: args.slice(1) };
 };
 
-module.exports = { parse };
+module.exports = parse;
