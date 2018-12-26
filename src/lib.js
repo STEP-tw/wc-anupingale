@@ -30,10 +30,10 @@ const getAllcounts = function(file) {
   return [empty, lineCount, wordCount, byteCount].join(tabspace);
 };
 
-const wc = function(fileNames, { readFileSync }) {
-  let file = readContent(readFileSync, fileNames[0]);
+const wc = function(args, { readFileSync }) {
+  let file = readContent(readFileSync, args.files[0]);
   let counts = getAllcounts(file);
-  return [counts, space, fileNames].join("");
+  return [counts, space, args.files[0]].join("");
 };
 
 module.exports = { wc, getAllcounts };
