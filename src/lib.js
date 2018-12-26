@@ -26,18 +26,15 @@ const replaceSpaceWithNewLine = replace.bind(null, NEWLINE, SPACE);
 
 const getWordCount = function(file) {
   let content = file.split("");
-  let wordCount = content
-    .map(replaceSpaceWithNewLine)
-    .join("")
-    .split("\n")
-    .filter(isNotEmpty).length;
+  let words = content.map(replaceSpaceWithNewLine).join("");
+  let wordCount = words.split("\n").filter(isNotEmpty).length;
   return { file, wordCount };
 };
 
 const wc = function(fileNames, fs) {
   let { readFileSync } = fs;
   let file = readFileSync(fileNames[0], "utf8");
-  let lines = getLineCount(file).lineCount;
+  let lines = getLineCount(file).lineCount - 1;
   let bytes = getByteCount(file).byteCount;
   let words = getWordCount(file).wordCount;
   return ["", lines, words, bytes].join("\t") + " " + fileNames;

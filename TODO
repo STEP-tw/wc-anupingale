@@ -1,0 +1,6 @@
+* wc -l
+  * add test cases for specified condition.
+  * extract smaller functions outside.
+  * write test cases for extracted functions.
+  * write function for extracting only line count if only file is specified
+  
