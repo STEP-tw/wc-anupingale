@@ -4,9 +4,10 @@ const {
   empty,
   tabspace,
   splitContent,
-  getLength,
   isNotempty
 } = require("./util.js");
+
+const readContent = (readFileSync, file) => readFileSync(file, "utf8");
 
 const getLines = splitContent.bind(null, newline);
 
@@ -14,14 +15,18 @@ const getBytes = splitContent.bind(null, empty);
 
 const removeSpaceAndNewline = splitContent.bind(null, /[ \n]+/);
 
-const readContent = (readFileSync, file) => readFileSync(file, "utf8");
-
 const getWords = file => removeSpaceAndNewline(file).filter(isNotempty);
 
-const getAllcounts = function(content) {
-  let lineCount = getLength(getLines(content)) - 1;
-  let wordCount = getLength(getWords(content));
-  let byteCount = getLength(getBytes(content));
+const getLinesCount = file => getLines(file).length;
+
+const getBytesCount = file => getBytes(file).length;
+
+const getWordCount = file => getWords(file).length;
+
+const getAllcounts = function(file) {
+  let lineCount = getLinesCount(file) - 1;
+  let wordCount = getWordCount(file);
+  let byteCount = getBytesCount(file);
   return [empty, lineCount, wordCount, byteCount].join(tabspace);
 };
 
