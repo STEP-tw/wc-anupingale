@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { wc } = require("../src/lib.js");
+const { wc, getAllcounts } = require("../src/lib.js");
 const mockReader = require("./util.js");
 
 let expectedFilePaths = {
@@ -19,6 +19,15 @@ describe("wc", function() {
   it('should return line, byte and word count when file content includes "\\n" and " " as a seperators', function() {
     actualOutput = wc(["numbers"], fs);
     expectedOutput = "\t9\t10\t58 numbers";
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+});
+
+describe("getAllCounts", function() {
+  const message = "hello \n world";
+  it("should return linecount, bytecount and wordcount for given content joined with tabspace", function() {
+    actualOutput = getAllcounts(message);
+    expectedOutput = "\t1\t2\t13";
     assert.deepEqual(actualOutput, expectedOutput);
   });
 });

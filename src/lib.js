@@ -1,28 +1,34 @@
-const space = " ";
-const newline = "\n";
-const empty = "";
-const tabspace = "\t";
-
-const splitContent = (seperator, file) => file.split(seperator);
-const getLength = content => content.length;
-const isNotempty = element => element != empty;
+const {
+  space,
+  newline,
+  empty,
+  tabspace,
+  splitContent,
+  getLength,
+  isNotempty
+} = require("./util.js");
 
 const getLines = splitContent.bind(null, newline);
+
 const getBytes = splitContent.bind(null, empty);
+
 const removeSpaceAndNewline = splitContent.bind(null, /[ \n]+/);
 
-const getWords = function(file) {
-  return removeSpaceAndNewline(file).filter(isNotempty);
+const readContent = (readFileSync, file) => readFileSync(file, "utf8");
+
+const getWords = file => removeSpaceAndNewline(file).filter(isNotempty);
+
+const getAllcounts = function(content) {
+  let lineCount = getLength(getLines(content)) - 1;
+  let wordCount = getLength(getWords(content));
+  let byteCount = getLength(getBytes(content));
+  return [empty, lineCount, wordCount, byteCount].join(tabspace);
 };
 
-const wc = function(fileNames, fs) {
-  let { readFileSync } = fs;
-  let counts = [empty];
-  let file = readFileSync(fileNames[0], "utf8");
-  counts.push(getLength(getLines(file)) - 1);
-  counts.push(getLength(getWords(file)));
-  counts.push(getLength(getBytes(file)));
-  return [counts.join(tabspace), space, fileNames].join("");
+const wc = function(fileNames, { readFileSync }) {
+  let file = readContent(readFileSync, fileNames[0]);
+  let counts = getAllcounts(file);
+  return [counts, space, fileNames].join("");
 };
 
-module.exports = { wc };
+module.exports = { wc, getAllcounts };
