@@ -1,43 +1,28 @@
-const SPACE = " ";
-const NEWLINE = "\n";
+const space = " ";
+const newline = "\n";
+const empty = "";
+const tabspace = "\t";
 
-const getLineCount = function(file) {
-  let lineCount = file.split("\n").length;
-  return { file, lineCount };
-};
+const splitContent = (seperator, file) => file.split(seperator);
+const getLength = content => content.length;
+const isNotempty = element => element != empty;
 
-const getByteCount = function(file) {
-  let byteCount = file.split("").length;
-  return { file, byteCount };
-};
+const getLines = splitContent.bind(null, newline);
+const getBytes = splitContent.bind(null, empty);
+const removeSpaceAndNewline = splitContent.bind(null, /[ \n]+/);
 
-const replace = function(seperator1, seperator2, element) {
-  if (element == seperator2) {
-    element = seperator1;
-  }
-  return element;
-};
-
-const isNotEmpty = function(element) {
-  return element != "";
-};
-
-const replaceSpaceWithNewLine = replace.bind(null, NEWLINE, SPACE);
-
-const getWordCount = function(file) {
-  let content = file.split("");
-  let words = content.map(replaceSpaceWithNewLine).join("");
-  let wordCount = words.split("\n").filter(isNotEmpty).length;
-  return { file, wordCount };
+const getWords = function(file) {
+  return removeSpaceAndNewline(file).filter(isNotempty);
 };
 
 const wc = function(fileNames, fs) {
   let { readFileSync } = fs;
+  let counts = [empty];
   let file = readFileSync(fileNames[0], "utf8");
-  let lines = getLineCount(file).lineCount - 1;
-  let bytes = getByteCount(file).byteCount;
-  let words = getWordCount(file).wordCount;
-  return ["", lines, words, bytes].join("\t") + " " + fileNames;
+  counts.push(getLength(getLines(file)) - 1);
+  counts.push(getLength(getWords(file)));
+  counts.push(getLength(getBytes(file)));
+  return [counts.join(tabspace), space, fileNames].join("");
 };
 
 module.exports = { wc };
