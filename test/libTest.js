@@ -39,13 +39,34 @@ describe("wc", function() {
       assert.deepEqual(actualOutput, expectedOutput);
     });
   });
+
+  describe("multiple files", function() {
+    it('should return content of multiple files with total if "lcw" is speacified as option', function() {
+      actualOutput = wc({ option: "lcw", files: ["numbers", "digits"] }, fs);
+      expectedOutput =
+        "\t9\t10\t58 numbers\n\t9\t10\t20 digits\n\t18\t20\t78 total";
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+    it('should return content of multiple files with total if "clw" is speacified as option"', function() {
+      actualOutput = wc({ option: "lcw", files: ["numbers", "digits"] }, fs);
+      expectedOutput =
+        "\t9\t10\t58 numbers\n\t9\t10\t20 digits\n\t18\t20\t78 total";
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+    it('should return content of multiple files with total if "wlc" is speacified as option"', function() {
+      actualOutput = wc({ option: "lcw", files: ["numbers", "digits"] }, fs);
+      expectedOutput =
+        "\t9\t10\t58 numbers\n\t9\t10\t20 digits\n\t18\t20\t78 total";
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
 });
 
 describe("getAllCounts", function() {
   const message = "hello \n world";
   it("should return linecount, bytecount and wordcount for given content joined with tabspace", function() {
     actualOutput = getAllcounts(message);
-    expectedOutput = "\t1\t2\t13";
+    expectedOutput = ["", 1, 2, 13];
     assert.deepEqual(actualOutput, expectedOutput);
   });
 });
