@@ -42,19 +42,19 @@ const getSingleFileContent = function({ readFileSync }, options, file) {
   return { allCounts, file };
 };
 
-let getTotal = function(firstList, secondList) {
-  let sum = [];
+let calculateTotal = function(firstList, secondList) {
+  let total = [];
   for (let counter = 0; counter < firstList.length; counter++) {
-    sum[counter] = firstList[counter] + secondList[counter];
+    total[counter] = firstList[counter] + secondList[counter];
   }
-  return sum;
+  return total;
 };
 
 const readMultipleFilecontent = function(fs, { options, files }) {
   let getContent = getSingleFileContent.bind(null, fs, options);
   let details = files.map(getContent);
   let counts = details.map(e => e.allCounts);
-  details.push({ allCounts: counts.reduce(getTotal), file: "total" });
+  details.push({ allCounts: counts.reduce(calculateTotal), file: "total" });
   return details.map(formatter).join("\n");
 };
 
