@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { wc, getAllcounts, getDataAsPerOption } = require("../src/lib.js");
+const { wc, getDataAsPerOption } = require("../src/lib.js");
 const mockReader = require("./util.js");
 
 let expectedFilePaths = {
@@ -43,20 +43,17 @@ describe("wc", function() {
   describe("multiple files", function() {
     it('should return content of multiple files with total if "lcw" is speacified as option', function() {
       actualOutput = wc({ options: "lcw", files: ["numbers", "digits"] }, fs);
-      expectedOutput =
-        "\t9\t10\t58 numbers\n\t9\t10\t20 digits\n\t18\t20\t78 total";
+      expectedOutput = "9\t10\t58 numbers\n9\t10\t20 digits\n18\t20\t78 total";
       assert.deepEqual(actualOutput, expectedOutput);
     });
     it('should return content of multiple files with total if "clw" is speacified as option"', function() {
       actualOutput = wc({ options: "lcw", files: ["numbers", "digits"] }, fs);
-      expectedOutput =
-        "\t9\t10\t58 numbers\n\t9\t10\t20 digits\n\t18\t20\t78 total";
+      expectedOutput = "9\t10\t58 numbers\n9\t10\t20 digits\n18\t20\t78 total";
       assert.deepEqual(actualOutput, expectedOutput);
     });
     it('should return content of multiple files with total if "wlc" is speacified as option"', function() {
       actualOutput = wc({ options: "lcw", files: ["numbers", "digits"] }, fs);
-      expectedOutput =
-        "\t9\t10\t58 numbers\n\t9\t10\t20 digits\n\t18\t20\t78 total";
+      expectedOutput = "9\t10\t58 numbers\n9\t10\t20 digits\n18\t20\t78 total";
       assert.deepEqual(actualOutput, expectedOutput);
     });
   });
@@ -65,27 +62,18 @@ describe("wc", function() {
 describe("getDataAsPerOption", function() {
   it("should return line count when l is specified as option with filename", function() {
     actualOutput = getDataAsPerOption(fs, "l", "numbers");
-    expectedOutput = "9 numbers";
+    expectedOutput = { allCounts: [9], file: "numbers" };
     assert.deepEqual(actualOutput, expectedOutput);
   });
 
   it("should return line count when c is specified as option with filename", function() {
     actualOutput = getDataAsPerOption(fs, "c", "numbers");
-    expectedOutput = "\t58 numbers";
+    expectedOutput = { allCounts: [58], file: "numbers" };
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it("should return line count when w is specified as option with filename", function() {
     actualOutput = getDataAsPerOption(fs, "w", "numbers");
-    expectedOutput = "\t10 numbers";
-    assert.deepEqual(actualOutput, expectedOutput);
-  });
-});
-
-describe("getAllCounts", function() {
-  const message = "hello \n world";
-  it("should return linecount, bytecount and wordcount for given content joined with tabspace", function() {
-    actualOutput = getAllcounts(message);
-    expectedOutput = ["", 1, 2, 13];
+    expectedOutput = { allCounts: [10], file: "numbers" };
     assert.deepEqual(actualOutput, expectedOutput);
   });
 });
