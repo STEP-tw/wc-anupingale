@@ -51,10 +51,9 @@ const getTotalCount = function(result, fileDetail) {
   return { line, byte, word };
 };
 
-const getDataAsPerOption = function(fs, args) {
+const getDataAsPerOption = function(fs, options, file) {
   let { readFileSync } = fs;
-  let { options, files } = args;
-  let content = readFileSync(files[0], "utf8");
+  let content = readFileSync(file, "utf8");
   let requireContent = "";
 
   if (options.includes("l")) {
@@ -68,7 +67,7 @@ const getDataAsPerOption = function(fs, args) {
   if (options.includes("c")) {
     requireContent += "\t" + getBytesCount(content);
   }
-  return requireContent + " " + files[0];
+  return requireContent + " " + file;
 };
 
 const readMultipleFilecontent = function(fs, files) {
@@ -88,9 +87,9 @@ const readMultipleFilecontent = function(fs, files) {
 };
 
 const wc = function(args, fs) {
-  let { files } = args;
+  let { files, options } = args;
   if (files.length == 1) {
-    return getDataAsPerOption(fs, args);
+    return getDataAsPerOption(fs, options, files[0]);
   }
   return readMultipleFilecontent(fs, files);
 };

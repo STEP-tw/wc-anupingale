@@ -64,27 +64,18 @@ describe("wc", function() {
 
 describe("getDataAsPerOption", function() {
   it("should return line count when l is specified as option with filename", function() {
-    actualOutput = getDataAsPerOption(fs, {
-      options: ["l"],
-      files: ["numbers"]
-    });
+    actualOutput = getDataAsPerOption(fs, "l", "numbers");
     expectedOutput = "9 numbers";
     assert.deepEqual(actualOutput, expectedOutput);
   });
 
   it("should return line count when c is specified as option with filename", function() {
-    actualOutput = getDataAsPerOption(fs, {
-      options: ["c"],
-      files: ["numbers"]
-    });
+    actualOutput = getDataAsPerOption(fs, "c", "numbers");
     expectedOutput = "\t58 numbers";
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it("should return line count when w is specified as option with filename", function() {
-    actualOutput = getDataAsPerOption(fs, {
-      options: ["w"],
-      files: ["numbers"]
-    });
+    actualOutput = getDataAsPerOption(fs, "w", "numbers");
     expectedOutput = "\t10 numbers";
     assert.deepEqual(actualOutput, expectedOutput);
   });
