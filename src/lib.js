@@ -21,13 +21,10 @@ const getBytesCount = file => getBytes(file).length;
 
 const getWordCount = file => getWords(file).length;
 
-const formatter = function(details) {
-  let { allCounts, file } = details;
-  return [allCounts.join(tabspace), " ", file].join("");
-};
+const formatter = ({ allCounts, file }) =>
+  [allCounts.join(tabspace), space, file].join("");
 
-const getDataAsPerOption = function(fs, options, file) {
-  let { readFileSync } = fs;
+const getSingleFileContent = function({ readFileSync }, options, file) {
   let content = readFileSync(file, "utf8");
   let allCounts = [];
 
@@ -46,29 +43,27 @@ const getDataAsPerOption = function(fs, options, file) {
 };
 
 let getTotal = function(firstList, secondList) {
-  let outputSum = [];
+  let sum = [];
   for (let counter = 0; counter < firstList.length; counter++) {
-    outputSum[counter] = firstList[counter] + secondList[counter];
+    sum[counter] = firstList[counter] + secondList[counter];
   }
-  return outputSum;
+  return sum;
 };
 
-const readMultipleFilecontent = function(fs, args) {
-  let { options, files } = args;
-  let getContent = getDataAsPerOption.bind(null, fs, options);
-  let counts = files.map(getContent);
-  let countsArray = counts.map(e => e.allCounts);
-  counts.push({ allCounts: countsArray.reduce(getTotal), file: "total" });
-  return counts.map(formatter).join("\n");
+const readMultipleFilecontent = function(fs, { options, files }) {
+  let getContent = getSingleFileContent.bind(null, fs, options);
+  let details = files.map(getContent);
+  let counts = details.map(e => e.allCounts);
+  details.push({ allCounts: counts.reduce(getTotal), file: "total" });
+  return details.map(formatter).join("\n");
 };
 
 const wc = function(args, fs) {
   let { files, options } = args;
   if (files.length == 1) {
-    let requiredData = getDataAsPerOption(fs, options, files[0]);
-    return formatter(requiredData);
+    return formatter(getSingleFileContent(fs, options, files[0]));
   }
   return readMultipleFilecontent(fs, args);
 };
 
-module.exports = { wc, getDataAsPerOption };
+module.exports = { wc, getSingleFileContent };

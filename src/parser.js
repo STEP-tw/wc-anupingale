@@ -1,5 +1,7 @@
 const startsWithDash = option => option.startsWith("-");
 
+const hasMultipleOption = option => option.length > 1;
+
 const removeDash = function(options) {
   return options.map(option => option.slice(1)).join("");
 };
@@ -7,7 +9,7 @@ const removeDash = function(options) {
 const parse = function(args) {
   let option = args.filter(arg => startsWithDash(arg));
   let options = removeDash(option) || "lcw";
-  if (options.length > 1) {
+  if (hasMultipleOption(options)) {
     return { options, files: args.slice(option.length) };
   }
   return { options, files: args.slice(1) };

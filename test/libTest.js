@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { wc, getDataAsPerOption } = require("../src/lib.js");
+const { wc, getSingleFileContent } = require("../src/lib.js");
 const mockReader = require("./util.js");
 
 let expectedFilePaths = {
@@ -59,20 +59,20 @@ describe("wc", function() {
   });
 });
 
-describe("getDataAsPerOption", function() {
+describe("getSingleFileContent", function() {
   it("should return line count when l is specified as option with filename", function() {
-    actualOutput = getDataAsPerOption(fs, "l", "numbers");
+    actualOutput = getSingleFileContent(fs, "l", "numbers");
     expectedOutput = { allCounts: [9], file: "numbers" };
     assert.deepEqual(actualOutput, expectedOutput);
   });
 
   it("should return line count when c is specified as option with filename", function() {
-    actualOutput = getDataAsPerOption(fs, "c", "numbers");
+    actualOutput = getSingleFileContent(fs, "c", "numbers");
     expectedOutput = { allCounts: [58], file: "numbers" };
     assert.deepEqual(actualOutput, expectedOutput);
   });
   it("should return line count when w is specified as option with filename", function() {
-    actualOutput = getDataAsPerOption(fs, "w", "numbers");
+    actualOutput = getSingleFileContent(fs, "w", "numbers");
     expectedOutput = { allCounts: [10], file: "numbers" };
     assert.deepEqual(actualOutput, expectedOutput);
   });
