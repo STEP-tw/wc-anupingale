@@ -55,20 +55,20 @@ const getDataAsPerOption = function(fs, args) {
   let { readFileSync } = fs;
   let { options, files } = args;
   let content = readFileSync(files[0], "utf8");
-  let output = "";
+  let requireContent = "";
 
   if (options.includes("l")) {
-    output += "\t" + getLinesCount(content) - 1;
+    requireContent += "\t" + getLinesCount(content) - 1;
   }
 
   if (options.includes("w")) {
-    output += "\t" + getWordCount(content);
+    requireContent += "\t" + getWordCount(content);
   }
 
   if (options.includes("c")) {
-    output += "\t" + getBytesCount(content);
+    requireContent += "\t" + getBytesCount(content);
   }
-  return output + " " + files[0];
+  return requireContent + " " + files[0];
 };
 
 const readMultipleFilecontent = function(fs, files) {
