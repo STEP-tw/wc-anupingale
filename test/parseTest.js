@@ -51,4 +51,10 @@ describe("parse", function() {
     expectedOutput = { options: "lcw", files: ["file1"] };
     assert.deepEqual(actualOutput, expectedOutput);
   });
+
+  it("should return multiple files are specified without option", function() {
+    actualOutput = parse(["file1"]);
+    expectedOutput = { options: "lcw", files: ["file1"] };
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
 });
