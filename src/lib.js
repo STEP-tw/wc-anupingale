@@ -32,11 +32,9 @@ const getAllcounts = function(file) {
 
 const getFileContent = function(fs, file) {
   let { readFileSync, existsSync } = fs;
-  if (existsSync(file)) {
-    let content = readContent(readFileSync, file);
-    let count = getAllcounts(content);
-    return { file, count };
-  }
+  let content = readContent(readFileSync, file);
+  let count = getAllcounts(content);
+  return { file, count };
 };
 
 const formatter = function(fileDetail) {
@@ -91,11 +89,10 @@ const readMultipleFilecontent = function(fs, files) {
 
 const wc = function(args, fs) {
   let { files } = args;
-
   if (files.length == 1) {
     return getDataAsPerOption(fs, args);
   }
   return readMultipleFilecontent(fs, files);
 };
 
-module.exports = { wc, getAllcounts };
+module.exports = { wc, getAllcounts, getDataAsPerOption };

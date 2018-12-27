@@ -3,7 +3,7 @@ const startsWithDash = option => option.startsWith("-");
 const parse = function(args) {
   let options = args.filter(arg => startsWithDash(arg));
   if (options.length == 0 && args.length == 1) {
-    options = ["-l", "-w", "-c"];
+    options = ["-lcw"];
     return { options, files: args };
   }
   if (options.length > 1) {

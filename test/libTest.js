@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { wc, getAllcounts } = require("../src/lib.js");
+const { wc, getAllcounts, getDataAsPerOption } = require("../src/lib.js");
 const mockReader = require("./util.js");
 
 let expectedFilePaths = {
@@ -68,6 +68,34 @@ describe("wc", function() {
         "\t9\t10\t58 numbers\n\t9\t10\t20 digits\n\t18\t20\t78 total";
       assert.deepEqual(actualOutput, expectedOutput);
     });
+  });
+});
+
+describe("getDataAsPerOption", function() {
+  it("should return line count when -l is specified as option with filename", function() {
+    actualOutput = getDataAsPerOption(fs, {
+      options: ["-l"],
+      files: ["numbers"]
+    });
+    expectedOutput = "9 numbers";
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+
+  it("should return line count when -c is specified as option with filename", function() {
+    actualOutput = getDataAsPerOption(fs, {
+      options: ["-c"],
+      files: ["numbers"]
+    });
+    expectedOutput = "\t58 numbers";
+    assert.deepEqual(actualOutput, expectedOutput);
+  });
+  it("should return line count when -w is specified as option with filename", function() {
+    actualOutput = getDataAsPerOption(fs, {
+      options: ["-w"],
+      files: ["numbers"]
+    });
+    expectedOutput = "\t10 numbers";
+    assert.deepEqual(actualOutput, expectedOutput);
   });
 });
 
