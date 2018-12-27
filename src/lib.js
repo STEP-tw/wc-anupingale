@@ -57,15 +57,15 @@ const getDataAsPerOption = function(fs, args) {
   let content = readFileSync(files[0], "utf8");
   let output = "";
 
-  if (options.includes("-l") || options[0].includes("l")) {
+  if (options.includes("l")) {
     output += "\t" + getLinesCount(content) - 1;
   }
 
-  if (options.includes("-w") || options[0].includes("w")) {
+  if (options.includes("w")) {
     output += "\t" + getWordCount(content);
   }
 
-  if (options.includes("-c") || options[0].includes("c")) {
+  if (options.includes("c")) {
     output += "\t" + getBytesCount(content);
   }
   return output + " " + files[0];
