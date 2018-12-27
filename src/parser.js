@@ -6,9 +6,8 @@ const removeDash = function(options) {
 
 const parse = function(args) {
   let option = args.filter(arg => startsWithDash(arg));
-  let options = removeDash(option);
+  let options = removeDash(option) || "lcw";
   if (options.length == 0 && args.length == 1) {
-    options = "lcw";
     return { options, files: args };
   }
   if (options.length > 1) {
