@@ -52,7 +52,7 @@ describe("parse", function() {
     assert.deepEqual(actualOutput, expectedOutput);
   });
 
-  it("should return multiple files are specified without option", function() {
+  it("should return all options when only file name is specified without options", function() {
     actualOutput = parse(["file1"]);
     expectedOutput = { options: "lcw", files: ["file1"] };
     assert.deepEqual(actualOutput, expectedOutput);

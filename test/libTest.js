@@ -41,17 +41,17 @@ describe("wc", function() {
   });
 
   describe("multiple files", function() {
-    it('should return content of multiple files with total if "lcw" is speacified as option', function() {
+    it('should return content of multiple files with total if "lcw" is specified as option', function() {
       actualOutput = wc({ options: "lcw", files: ["numbers", "digits"] }, fs);
       expectedOutput = "9\t10\t58 numbers\n9\t10\t20 digits\n18\t20\t78 total";
       assert.deepEqual(actualOutput, expectedOutput);
     });
-    it('should return content of multiple files with total if "clw" is speacified as option"', function() {
+    it('should return content of multiple files with total if "clw" is specified as option"', function() {
       actualOutput = wc({ options: "lcw", files: ["numbers", "digits"] }, fs);
       expectedOutput = "9\t10\t58 numbers\n9\t10\t20 digits\n18\t20\t78 total";
       assert.deepEqual(actualOutput, expectedOutput);
     });
-    it('should return content of multiple files with total if "wlc" is speacified as option"', function() {
+    it('should return content of multiple files with total if "wlc" is specified as option"', function() {
       actualOutput = wc({ options: "lcw", files: ["numbers", "digits"] }, fs);
       expectedOutput = "9\t10\t58 numbers\n9\t10\t20 digits\n18\t20\t78 total";
       assert.deepEqual(actualOutput, expectedOutput);

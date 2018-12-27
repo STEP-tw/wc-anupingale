@@ -1,11 +1,9 @@
-const {
-  space,
-  newline,
-  empty,
-  tabspace,
-  splitContent,
-  isNotempty
-} = require("./util.js");
+const newline = "\n";
+const empty = "";
+const space = " ";
+const tabspace = "\t";
+
+const { splitContent, isNotempty } = require("./util.js");
 
 const getLines = splitContent.bind(null, newline);
 
