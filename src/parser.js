@@ -1,8 +1,6 @@
 const startsWithDash = option => option.startsWith("-");
 
-const getIndex = function(element) {
-  return !startsWithDash(element);
-};
+const getIndex = element => !startsWithDash(element);
 
 const parse = function(args) {
   let defaultOption = "-lcw";

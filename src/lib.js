@@ -11,6 +11,8 @@ const getBytes = splitContent.bind(null, empty);
 
 const removeSpaceAndNewline = splitContent.bind(null, /[ \n]+/);
 
+const hasSingleFile = files => files.length == 1;
+
 const getWords = file => removeSpaceAndNewline(file).filter(isNotempty);
 
 const getLinesCount = file => getLines(file).length - 1;
@@ -52,13 +54,14 @@ const readMultipleFilecontent = function(fs, { options, files }) {
   let getContent = getSingleFileContent.bind(null, fs, options);
   let details = files.map(getContent);
   let counts = details.map(e => e.allCounts);
-  details.push({ allCounts: counts.reduce(calculateTotal), file: "total" });
+  let countsTotal = { allCounts: counts.reduce(calculateTotal), file: "total" };
+  details.push(countsTotal);
   return details.map(formatter).join("\n");
 };
 
 const wc = function(args, fs) {
   let { files, options } = args;
-  if (files.length == 1) {
+  if (hasSingleFile(files)) {
     return formatter(getSingleFileContent(fs, options, files[0]));
   }
   return readMultipleFilecontent(fs, args);
