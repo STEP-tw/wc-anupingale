@@ -1,18 +1,16 @@
 const startsWithDash = option => option.startsWith("-");
 
-const hasMultipleOption = option => option.length > 1;
-
-const removeDash = function(options) {
-  return options.map(option => option.slice(1)).join("");
+const getIndex = function(element) {
+  return !startsWithDash(element);
 };
 
 const parse = function(args) {
-  let option = args.filter(arg => startsWithDash(arg));
-  let options = removeDash(option) || "lcw";
-  if (hasMultipleOption(options)) {
-    return { options, files: args.slice(option.length) };
-  }
-  return { options, files: args.slice(1) };
+  let defaultOption = "-lcw";
+  let divider = args.findIndex(getIndex);
+  if (divider < 0) divider = args.length;
+  let options = args.slice(0, divider).join("") || defaultOption;
+  let files = args.slice(divider);
+  return { options, files };
 };
 
 module.exports = parse;
