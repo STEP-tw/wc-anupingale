@@ -54,8 +54,11 @@ const readMultipleFilecontent = function(fs, { options, files }) {
   let getContent = getSingleFileContent.bind(null, fs, options);
   let details = files.map(getContent);
   let counts = details.map(e => e.allCounts);
-  let countsTotal = { allCounts: counts.reduce(calculateTotal), file: "total" };
-  details.push(countsTotal);
+  let totalOfCounts = {
+    allCounts: counts.reduce(calculateTotal),
+    file: "total"
+  };
+  details.push(totalOfCounts);
   return details.map(formatter).join("\n");
 };
 
