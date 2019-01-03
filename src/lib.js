@@ -42,7 +42,7 @@ const getSingleFileContent = function({ readFileSync }, options, file) {
   return { allCounts, file };
 };
 
-let calculateTotal = function(firstList, secondList) {
+const calculateTotal = function(firstList, secondList) {
   let total = [];
   for (let counter = 0; counter < firstList.length; counter++) {
     total[counter] = firstList[counter] + secondList[counter];
