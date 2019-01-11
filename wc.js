@@ -4,7 +4,7 @@ const fs = require("fs");
 
 const main = function() {
 	let args = parse(process.argv.slice(2));
-	console.log(wc(args, fs));
+	wc(args, fs);
 };
 
 main();
